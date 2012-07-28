@@ -64,7 +64,7 @@ class Response {
 	 * could actually be fulfilling that request with a file called bar.zip.
 	 * This property would store "zip" in the above case.
 	 *
-	 * @param string|NULL
+	 * @var string|NULL
 	 */
 	private $file_extension;
 
@@ -97,15 +97,28 @@ class Response {
 	}
 
 	/**
+	 * Returns the size of the file or asset serving the URL request, if
+	 * if available.
+	 *
+	 * @return int|NULL
+	 *   Returns the file size, in bytes, if available.  Otherwise, if the
+	 *   size wasn't included in the response headers, NULL.
+	 */
+	public function size()
+	{
+		return $this->file_size;
+	}
+
+	/**
 	 * Returns the MIMEType of the file, as advertised in the HTTP response
 	 * headers.
 	 *
 	 * @return string|NULL
 	 *   Either the mime type, in string form, of the resource, or NULL
 	 *   if the server didn't advertise a mime type / content type
-	 *   for the resource
+	 *   for the resource.
 	 */
-	public function mimeType()
+	public function type()
 	{
 		return $this->mime_type;
 	}
@@ -121,7 +134,7 @@ class Response {
 	 *   The name of the file used to satisfy the request, if available.
 	 *   Otherwise, NULL
 	 */
-	public function fileName()
+	public function name()
 	{
 		return $this->file_name;
 	}
@@ -136,7 +149,7 @@ class Response {
 	 *   The right most file extension of the served file, if it exists.
 	 *   Otherwise, NULL
 	 */
-	public function fileExtension()
+	public function extension()
 	{
 		return $this->file_extension;
 	}
@@ -172,6 +185,12 @@ class Response {
 			if (($index = strripos($this->file_name, '.')) !== FALSE) {
 				$this->file_extension = substr($results['filename'], $index + 1);
 			}
+		}
+
+		$file_size_pattern = '/content-length:\s?([^s]+)/i';
+		$file_size_matches = array();
+		if (preg_match($file_size_pattern, $this->headers, $file_size_matches)) {
+			$this->file_size = trim($file_size_matches[1])''
 		}
 
 		return $this;
