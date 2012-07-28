@@ -1,6 +1,6 @@
 <?php
 
-namespace \PES\HTTP\Info;
+namespace PES\HTTP\Info;
 
 /**
  * PES\HTTP\Info
@@ -190,7 +190,7 @@ class Response {
 		$file_size_pattern = '/content-length:\s?([^s]+)/i';
 		$file_size_matches = array();
 		if (preg_match($file_size_pattern, $this->headers, $file_size_matches)) {
-			$this->file_size = trim($file_size_matches[1])''
+			$this->file_size = trim($file_size_matches[1]);
 		}
 
 		return $this;

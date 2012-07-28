@@ -1,6 +1,6 @@
 <?php
 
-namespace \PES\HTTP;
+namespace PES\HTTP;
 
 /**
  * PES\HTTP\Info
@@ -58,6 +58,13 @@ class Info {
 	public function fetch()
 	{
 		$curl = curl_init();
+
+		// Since we're not actually fetching the body of any assets, don't
+		// bother checking SSL certs, etc.  This will also work around
+		// the very old set of certs that cURL ships with.
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);     
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); 
+
 		curl_setopt($curl, CURLOPT_URL, $this->url());
 		curl_setopt($curl, CURLOPT_HEADER, TRUE);
 		curl_setopt($curl, CURLOPT_NOBODY, TRUE);
