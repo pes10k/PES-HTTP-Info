@@ -12,7 +12,27 @@ Requires
 ---
 
 * PHP 5.3
-* The cUrl extension
+* The cURL extension
+
+Usage
+---
+`
+	$request = new \PES\HTTP\Info('http://assets.github.com/images/modules/footer/blacktocat.svg');
+	$response = $request->fetch();
+
+	if ( ! $request) {
+
+		echo 'The GitHub cat icon has gone away!';
+
+	} else {
+
+		echo sprintf(
+			'The GitHub cat icon is where we though it would be.  It is %d bytes big, and in %s format.',
+			$response->size(),
+			$response->type()
+		);
+	}
+`
 
 Author
 ---
