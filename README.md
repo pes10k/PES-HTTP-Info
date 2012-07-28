@@ -32,6 +32,7 @@ Usage
 			$response->type()
 		);
 	}
+
 `
 
 Author
