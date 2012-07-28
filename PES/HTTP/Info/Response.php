@@ -171,7 +171,7 @@ class Response {
 
 		// Now we can try to extract various useful pieces of information
 		// from the headers via regexes.
-		$file_type_pattern = '/Content-Type:\s?([^\s]+)/i';
+		$file_type_pattern = '/Content-Type:\s?([^\s;]+)/i';
 		$file_type_matches = array();
 		if (preg_match($file_type_pattern, $this->headers, $file_type_matches)) {
 			$this->mime_type = trim($file_type_matches[1]);
@@ -187,7 +187,7 @@ class Response {
 			}
 		}
 
-		$file_size_pattern = '/content-length:\s?([^s]+)/i';
+		$file_size_pattern = '/content-length:\s?([^s;]+)/i';
 		$file_size_matches = array();
 		if (preg_match($file_size_pattern, $this->headers, $file_size_matches)) {
 			$this->file_size = trim($file_size_matches[1]);
