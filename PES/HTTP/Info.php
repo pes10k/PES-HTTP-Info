@@ -34,6 +34,14 @@ class Info {
 	protected $url;
 
 	/**
+	 * The maximum amount of time to wait for a response from the server.
+	 * Defaults to 5 seconds.
+	 *
+	 * @var int
+	 */
+	protected $timeout = 5;
+
+	/**
 	 * Constructor optionally allows for setting the URL to the checked
 	 * at instantiation.
 	 *
@@ -65,6 +73,7 @@ class Info {
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);     
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2); 
 
+		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 		curl_setopt($curl, CURLOPT_URL, $this->url());
 		curl_setopt($curl, CURLOPT_HEADER, TRUE);
 		curl_setopt($curl, CURLOPT_NOBODY, TRUE);
@@ -115,6 +124,35 @@ class Info {
 	public function setUrl($a_url)
 	{
 		$this->url = $a_url;
+		return $this;
+	}
+
+	/**
+	 * Returns the current maximum number of seconds that we'll wait for a
+	 * response from the server, before timing out.
+	 *
+	 * @return int
+	 *   The number of seconds to wait before timing out
+	 */
+	public function timeout()
+	{
+		return $this->timeout;
+	}
+
+	/**
+	 * Set the maximum number of seconds that we should wait for a
+	 * response from the server before quitting.
+	 *
+	 * @param int $secs
+	 *   The number of seconds to wait for a response from the server.
+	 *   Set as 0 for no timeout
+	 *
+	 * @return \PES\HTTP\Info
+	 *   A reference to the current instance, to allow for method chaining
+	 */
+	public function setTimeout($secs)
+	{
+		$this->timeout = $secs;
 		return $this;
 	}
 }
