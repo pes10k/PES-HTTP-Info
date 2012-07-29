@@ -17,6 +17,7 @@ Requires
 Usage
 ---
 `
+
 	$request = new \PES\HTTP\Info('http://assets.github.com/images/modules/footer/blacktocat.svg');
 	$response = $request->fetch();
 
