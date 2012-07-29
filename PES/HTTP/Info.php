@@ -80,7 +80,7 @@ class Info {
 
 		} else {
 
-			return new \PES\HTTP\Info\Response($headers);
+			return new Info\Response($headers);
 
 		}
 	}
