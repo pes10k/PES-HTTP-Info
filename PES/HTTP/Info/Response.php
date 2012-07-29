@@ -183,7 +183,7 @@ class Response {
 			$this->file_name = trim($file_name_matches[1]);
 		
 			if (($index = strripos($this->file_name, '.')) !== FALSE) {
-				$this->file_extension = substr($results['filename'], $index + 1);
+				$this->file_extension = substr($this->file_name, $index + 1);
 			}
 		}
 
